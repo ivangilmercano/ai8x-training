@@ -77,7 +77,7 @@ def ai85nascifarnet(pretrained=False, **kwargs):
 
 models = [
     {
-        'name': 'ai85nascifarnet',
+        'name': 'ai85cifaremotionrecog',
         'min_input': 1,
         'dim': 2,
     },
