@@ -10,17 +10,19 @@
 Cats and Dogs Datasets
 """
 import errno
-import os
+
 import shutil
 import sys
 
+import os
 import torch
 import torchvision
 from torchvision import transforms
+import ai8x
 
 from PIL import Image
 
-import ai8x
+
 
 torch.manual_seed(0)
 

@@ -552,6 +552,7 @@ class KWS:
                             audio_chunk = audio_seq[start_idx:end_idx]
                             # pad zero if the length of the chunk is smaller than row_len
                             audio_chunk = np.pad(audio_chunk, [0, row_len - audio_chunk.size])
+                            mfccs = librosa.feature.mfcc(y=audio_chunk, sr=fs, n_mfcc = 40)
                             # store input data after quantization
                             data_idx = (self.augmentation['aug_num'] + 1) * r + n_a
                             if not self.save_unquantized:
@@ -620,6 +621,7 @@ def KWS_get_datasets(data, load_train=True, load_test=True, num_classes=6):
     (data_dir, args) = data
 
     transform = transforms.Compose([
+        
         ai8x.normalize(args=args)
     ])
 
