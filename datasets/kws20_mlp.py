@@ -21,62 +21,41 @@
 # See the License for the specific language governing permissions and
 # limitations under the License.
 #
-"""
-Classes and functions used to create keyword spotting dataset for MLP application.
-"""
 
-class KWS20_MLP:
-    """
-    `SpeechCom v0.02 <http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz>`
-    Dataset, 1D folded.
+import errno
+import hashlib
+import os
+import tarfile
+import time
+import urllib
+import warnings
+from zipfile import ZipFile
 
-    Args:
-    root (string): Root directory of dataset where ``KWS/processed/dataset.pt``
-        exist.
-    classes(array): List of keywords to be used.
-    d_type(string): Option for the created dataset. ``train`` or ``test``.
-    n_augment(int, optional): Number of augmented samples added to the dataset from
-        each sample by random modifications, i.e. stretching, shifting and random noise.
-    transform (callable, optional): A function/transform that takes in an PIL image
-        and returns a transformed version.
-    download (bool, optional): If true, downloads the dataset from the internet and
-        puts it in root directory. If dataset is already downloaded, it is not
-        downloaded again.
-    save_unquantized (bool, optional): If true, folded but unquantized data is saved.
+import numpy as np
+import torch
+from torch.utils.model_zoo import tqdm
+from torchvision import transforms
 
-    """
+import librosa
+import pytsmod as tsm
+import soundfile as sf
 
-    url_speechcommand = 'http://download.tensorflow.org/data/speech_commands_v0.02.tar.gz'
-    url_librispeech = 'http://us.openslr.org/resources/12/dev-clean.tar.gz'
-    fs = 16000
+import ai8x
 
-    class_dict = {'backward': 0, 'bed': 1, 'bird': 2, 'cat': 3, 'dog': 4, 'down': 5, 
-                  'eight': 6, 'five': 7, 'follow': 8, 'forward': 9, 'four': 10, 'go': 11,
-                  'happy': 12, 'house': 13, 'learn': 14, 'left': 15, 'librispeech': 16,
-                  'marvin': 17, 'nine': 18, 'no': 19, 'off': 20, 'on': 21, 'one': 22,
-                  'right': 23, 'seven': 24, 'sheila': 25, 'six': 26, 'stop': 27,
-                  'three': 28, 'tree': 29, 'two': 30, 'up': 31, 'visual': 32, 'wow': 33,
-                  'yes': 34, 'zero': 35}
+data = '../data/KWS/raw'
 
-    def __init__(self, root, classes, transform=None, mfcc=None, download=False):
-        
-        self.root=root
-        self.clsses=classes
-        self.transform=transform
-        self.download=download
+def get_kwsmlp_dataset(data, load_train=True, load_test=True):
+    (data_dir, data) = data
+    path = data_dir
+    print(path)
 
-        self.__get_mfcc(mfcc)
-
-    @property
-    def raw_folder(self):
-        """"
-        folder directory for raw data
-        """
-        return os.path.join(self.root, self.__class__.__name__, 'raw')
+datasets = [
+    {'name': 'kws20_mlp', 
+    'input': (3, 128, 128), 
+    'output': ('cat', 'dog'), 
+    'loader': get_kwsmlp_dataset,
+    },]
 
 
-        
-
-
-
-    
+if __name__ == "__main__":
+    get_kwsmlp_dataset(data)
