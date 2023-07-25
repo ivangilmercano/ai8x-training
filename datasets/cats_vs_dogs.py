@@ -26,6 +26,10 @@ from PIL import Image
 
 torch.manual_seed(0)
 
+class ToMFCC (torch.nn.Module):
+
+    def forward(self, audio):
+        ...
 
 def augment_affine_jitter_blur(orig_img):
     """
@@ -177,6 +181,7 @@ def catsdogs_get_datasets(data, load_train=True, load_test=True, aug=2):
     if load_test:
         test_transform = transforms.Compose([
             transforms.Resize((128, 128)),
+            ToMFCC(),
             transforms.ToTensor(),
             ai8x.normalize(args=args)
         ])
