@@ -9,18 +9,21 @@
 """
 Cats and Dogs Datasets
 """
-import errno
 
-import shutil
-import sys
-
+# Essential Imports
 import os
 import torch
 import torchvision
 from torchvision import transforms
 import ai8x
 
+# Custom Imports
 from PIL import Image
+import errno
+import shutil
+import sys
+import numpy
+
 
 torch.manual_seed(0)
 
@@ -94,8 +97,8 @@ def catsdogs_get_datasets(data, load_train=True, load_test=True, aug=2):
             os.makedirs(processed_train_path, exist_ok=True)
 
             # create label folders
-            for d in os.listdir(test_path):
-                mk = os.path.join(processed_test_path, d)
+            for d in os.listdir(train_path):
+                mk = os.path.join(processed_train_path, d)
                 try:
                     os.mkdir(mk)
                 except OSError as e:
@@ -103,8 +106,10 @@ def catsdogs_get_datasets(data, load_train=True, load_test=True, aug=2):
                         print(f'{mk} already exists!')
                     else:
                         raise
-            for d in os.listdir(train_path):
-                mk = os.path.join(processed_train_path, d)
+            
+            # create label folders
+            for d in os.listdir(test_path):
+                mk = os.path.join(processed_test_path, d)
                 try:
                     os.mkdir(mk)
                 except OSError as e:
