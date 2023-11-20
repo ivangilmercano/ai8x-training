@@ -22,14 +22,7 @@ import ai8x
 
 from PIL import Image
 
-
-
 torch.manual_seed(0)
-
-class ToMFCC (torch.nn.Module):
-
-    def forward(self, audio):
-        ...
 
 def augment_affine_jitter_blur(orig_img):
     """
