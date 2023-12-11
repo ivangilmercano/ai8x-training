@@ -92,22 +92,6 @@ def cakes_get_datasets(data, load_train=True, load_test=True, aug=2):
     validation_path = os.path.join(dataset_path + 'validation/')
     is_dir = os.path.isdir(dataset_path)
     if not is_dir:
-        print("******************************************")
-        print("Please follow the instructions below:")
-        print("Download the dataset to the \'data\' folder by visiting this link: "
-              "\'https://www.kaggle.com/datasets/salader/dogs-vs-cats\'")
-        print("If you do not have a Kaggle account, sign up first.")
-        print("Unzip the downloaded file and find \'test\' and \'train\' folders "
-              "and copy them into \'data/cakes-datase\'. ")
-        print("Make sure that images are in the following directory structure:")
-        print("  \'data/cakes-dataset/train/cats\'")
-        print("  \'data/cakes-datase/train/dogs\'")
-        print("  \'data/cakes-datase/test/cats\'")
-        print("  \'data/cakes-datase/test/dogs\'")
-        print("Re-run the script. The script will create an \'augmented\' folder ")
-        print("with all the original and augmented images. Remove this folder if you want "
-              "to change the augmentation and to recreate the dataset.")
-        print("******************************************")
         sys.exit("Dataset not found!")
     else:
         print('yes')
