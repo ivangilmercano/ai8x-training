@@ -189,7 +189,7 @@ def cakes_get_datasets(data, load_train=True, load_test=True, aug=2):
                         for i in range(aug):
                             aug_img = augment_affine_jitter_blur(padded_img)
                             augfile = destfile[:-4] + '_aj' + str(i) + '.jpg'
-                            aug_img.save(augfile)
+                            aug_img.save(augfile)   
                             train_cnt += 1
 
             # augment validation and save to train folder
